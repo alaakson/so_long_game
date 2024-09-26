@@ -5,6 +5,8 @@
 
 A 2d gane where you collect item(s) and reach the exit. 
 
+# Instructions
+
 1. git clone https://github.com/alaakson/so_long_game.git
 2. cd so_long_game
 3. run make
