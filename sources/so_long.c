@@ -45,7 +45,6 @@ int	main(int argc, char **argv)
 	ft_printf("Starting game goodluck!\n");
 	build_map(&game->map, argv[1]);
 	load_map(game, argv[1]);
-	print_map(game);
 	init(game);
 	handle_map(game);
 	map_and_win(game, game->posx, game->posy, game->p_front);
