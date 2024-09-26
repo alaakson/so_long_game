@@ -3,7 +3,7 @@
 ![Screenshot of game ](https://github.com/user-attachments/assets/68b020c1-99d2-4a0d-9cf1-ed3098f644a3)
 
 
-A 2d gane where you collect item(s) and reach the exit. 
+A 2d game where you collect item(s) and reach the exit. 
 
 ### Instructions for Linux
 
