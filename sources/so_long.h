@@ -6,7 +6,7 @@
 /*   By: alaakson <alaakson@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:35 by alaakson          #+#    #+#             */
-/*   Updated: 2024/09/24 11:27:15 by alaakson         ###   ########.fr       */
+/*   Updated: 2024/09/27 11:56:22 by alaakson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@
 # include <mlx.h>
 # include "../libft/libft.h"
 # include <fcntl.h>
-# include <stdio.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
-# include <fcntl.h>
+# include <stdio.h>
 
 # define IMG_HEIGHT 32
 # define IMG_WIDTH 32
@@ -45,12 +44,6 @@
 # define KEY_LEFT 97
 # define KEY_DOWN 115
 # define KEY_RIGHT 100
-
-# define DIR_UP    0
-# define DIR_DOWN  1
-# define DIR_LEFT  2
-# define DIR_RIGHT 3
-
 # define KEY_Q				113
 # define KEY_ESC  			65307
 
@@ -101,6 +94,8 @@ typedef struct t_game
 	int		game_finished;
 	int		start;
 	int		end;
+	size_t	exity;
+	size_t	exitx;
 	t_map	map;
 }	t_game;
 
@@ -131,6 +126,7 @@ int		close_game_on_enter(int keycode, t_game *game);
 void	game_complete(t_game *game, size_t new_x, size_t new_y);
 void	*load_image(t_game *game, const char *path);
 void	map_error(char *s);
-void    duplicate_checker(t_game *game);
+void	handle_map_errors(t_game *game, int error_flag);
+void	check_map_errors(t_game *game);
 
 #endif

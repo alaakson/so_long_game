@@ -6,7 +6,7 @@
 /*   By: alaakson <alaakson@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 10:53:23 by alaakson          #+#    #+#             */
-/*   Updated: 2024/09/24 12:11:14 by alaakson         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:44:32 by alaakson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,16 @@ int	exit_hook(t_game *game)
 {
 	if (!game)
 		return (EXIT_SUCCESS);
-	printf("You pressed exit.\nQuitting game now!\n");
+	ft_printf("You pressed exit.\nQuitting game now!\n");
 	game->game_over = 1;
 	game->game_finished = 1;
 	finish_map(game);
 	if (game->mlx)
 	{
-		mlx_loop_end(game->mlx);
+		mlx_destroy_window(game->mlx, game->win);
+		game->win = NULL;
 	}
+	exit(EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }
 

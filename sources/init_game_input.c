@@ -6,7 +6,7 @@
 /*   By: alaakson <alaakson@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:36:33 by alaakson          #+#    #+#             */
-/*   Updated: 2024/09/24 10:45:26 by alaakson         ###   ########.fr       */
+/*   Updated: 2024/09/27 11:56:52 by alaakson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,6 @@ void	count_collectibles(t_game *game)
 		row++;
 	}
 	ft_printf("Total collectibles to pick up!: %d\n", game->collectible);
-}
-
-void	find_player_start(t_game *game)
-{
-	size_t	row;
-	size_t	col;
-
-	row = 0;
-	while (row < game->map.rows)
-	{
-		col = 0;
-		while (col < game->map.columns)
-		{
-			if (game->map.map[row][col] == 'P')
-			{
-				game->posx = col;
-				game->posy = row;
-				return ;
-			}
-			col++;
-		}
-		row++;
-	}
 }
 
 void	init(t_game *game)
@@ -81,7 +58,7 @@ void	init(t_game *game)
 		show_error("Failed to open window.\n");
 	sprite_init(game);
 	count_collectibles(game);
-	find_player_start(game);
+	check_map_errors(game);
 }
 
 void	sprite_init(t_game *game)

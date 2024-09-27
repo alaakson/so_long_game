@@ -6,7 +6,7 @@
 /*   By: alaakson <alaakson@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:36:24 by alaakson          #+#    #+#             */
-/*   Updated: 2024/09/24 10:58:23 by alaakson         ###   ########.fr       */
+/*   Updated: 2024/09/27 11:52:25 by alaakson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int	key_hook(int keycode, t_game *game)
 		ft_printf("Quitting game!\n");
 		game->game_over = 1;
 		game->game_finished = 1;
-		//finish_map(game);
 		exit(EXIT_SUCCESS);
 	}
 	if (keycode == KEY_UP || keycode == KEY_DOWN)
@@ -136,7 +135,7 @@ void	update_display(t_game *game)
 	}
 	if (!game->win)
 	{
-		ft_printf("Warning: Attempted to update display with no active window.\n");
+		ft_printf("Warning: Attempted to update display with no window.\n");
 		return ;
 	}
 	mlx_clear_window(game->mlx, game->win);

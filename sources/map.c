@@ -6,7 +6,7 @@
 /*   By: alaakson <alaakson@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:36:49 by alaakson          #+#    #+#             */
-/*   Updated: 2024/09/24 12:12:20 by alaakson         ###   ########.fr       */
+/*   Updated: 2024/09/27 11:52:59 by alaakson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,30 +121,6 @@ void	draw_map(t_game *game)
 					x * IMG_WIDTH, y * IMG_HEIGHT);
 			x++;
 		}
-		y++;
-	}
-}
-
-void	print_map(t_game *game)
-{
-	size_t	y;
-	size_t	x;
-
-	if (game->map.map == NULL)
-	{
-		ft_printf("Map data is not available\n");
-		return ;
-	}
-	y = 0;
-	while (y < game->map.rows)
-	{
-		x = 0;
-		while (x < game->map.columns)
-		{
-			ft_printf("%c", game->map.map[y][x]);
-			x++;
-		}
-		ft_printf("\n");
 		y++;
 	}
 }
