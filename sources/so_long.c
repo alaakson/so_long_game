@@ -44,9 +44,9 @@ int	main(int argc, char **argv)
 		ft_printf("Failed to allocate memory for game\n");
 		return (EXIT_FAILURE);
 	}
-	ft_printf("Starting game goodluck!\n");
 	build_map(&game->map, argv[1]);
 	load_map(game, argv[1]);
+	checkwalls(game);
 	init(game);
 	handle_map(game);
 	map_and_win(game, game->posx, game->posy, game->p_front);
