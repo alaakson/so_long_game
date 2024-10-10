@@ -6,7 +6,7 @@
 /*   By: alaakson <alaakson@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:32:22 by alaakson          #+#    #+#             */
-/*   Updated: 2024/09/27 11:55:05 by alaakson         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:02:13 by alaakson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	verticalwall(t_game *game)
 	return (1);
 }
 
-void	check_walls(t_game *game)
+int	check_walls(t_game *game)
 {
 	if (!verticalwall(game))
 	{
@@ -87,4 +87,5 @@ void	check_walls(t_game *game)
 		ft_printf("Error: Top or Bottom boundary wall missing\n");
 		exit(EXIT_FAILURE);
 	}
+	return (1);
 }

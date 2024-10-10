@@ -6,7 +6,7 @@
 /*   By: alaakson <alaakson@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:35 by alaakson          #+#    #+#             */
-/*   Updated: 2024/09/27 11:56:22 by alaakson         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:02:39 by alaakson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	init(t_game *game);
 void	build_map(t_map *map, const char *file_path);
 void	handle_map(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
-void	check_walls(t_game *game);
+int		check_walls(t_game *game);
 void	map_and_win(t_game *game, size_t new_x, size_t new_y, void *new_image);
 int		check_images_loaded(t_game *game);
 void	draw_map(t_game *game);
@@ -128,5 +128,6 @@ void	*load_image(t_game *game, const char *path);
 void	map_error(char *s);
 void	handle_map_errors(t_game *game, int error_flag);
 void	check_map_errors(t_game *game);
+int		check_tiles(t_game *game);
 
 #endif
