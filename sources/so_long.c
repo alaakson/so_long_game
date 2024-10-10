@@ -40,13 +40,11 @@ int	main(int argc, char **argv)
 	}
 	game = malloc(sizeof(t_game));
 	if (!game)
-	{
-		ft_printf("Failed to allocate memory for game\n");
 		return (EXIT_FAILURE);
-	}
 	build_map(&game->map, argv[1]);
 	load_map(game, argv[1]);
-	checkwalls(game);
+	check_walls(game);
+	check_tiles(game);
 	init(game);
 	handle_map(game);
 	map_and_win(game, game->posx, game->posy, game->p_front);
