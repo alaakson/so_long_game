@@ -127,7 +127,6 @@ void	game_complete(t_game *game, size_t new_x, size_t new_y);
 void	*load_image(t_game *game, const char *path);
 void	map_error(char *s);
 void	handle_map_errors(t_game *game, int error_flag);
-void	check_map_errors(t_game *game);
 int	check_tiles(t_game *game);
 int	check_coins(t_game *game);
 
