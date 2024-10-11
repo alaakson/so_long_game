@@ -24,9 +24,9 @@
 # define IMG_WIDTH 32
 
 # define BACK "sources/sprites/back.xpm"
-# define LEFT "sources/sprites/left.xpm"
-# define RIGHT "sources/sprites/right.xpm"
-# define FRONT "sources/sprites/front.xpm"
+//# define LEFT "sources/sprites/left.xpm"
+// define RIGHT "sources/sprites/right.xpm"
+//# define FRONT "sources/sprites/front.xpm"
 # define TILE "sources/sprites/floor.xpm"
 # define VGG "sources/sprites/wall.xpm"
 # define EXIT "sources/sprites/exit.xpm"
@@ -128,5 +128,7 @@ void	*load_image(t_game *game, const char *path);
 void	map_error(char *s);
 void	handle_map_errors(t_game *game, int error_flag);
 void	check_map_errors(t_game *game);
+int	check_tiles(t_game *game);
+int	check_coins(t_game *game);
 
 #endif
