@@ -45,8 +45,9 @@ int	main(int argc, char **argv)
 	load_map(game, argv[1]);
 	check_walls(game);
 	check_tiles(game);
+	check_coins(game);
 	init(game);
-	handle_map(game);
+	//handle_map(game); could be removed
 	map_and_win(game, game->posx, game->posy, game->p_front);
 	update_display(game);
 	mlx_key_hook(game->win, key_hook, game);
