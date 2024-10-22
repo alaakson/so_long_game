@@ -6,7 +6,7 @@
 /*   By: alaakson <alaakson@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 10:53:23 by alaakson          #+#    #+#             */
-/*   Updated: 2024/09/27 10:44:32 by alaakson         ###   ########.fr       */
+/*   Updated: 2024/10/22 19:39:04 by alaakson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ int	main(int argc, char **argv)
 	if (!game)
 		return (EXIT_FAILURE);
 	build_map(&game->map, argv[1]);
+	allocate_map_memory(game);
 	load_map(game, argv[1]);
 	check_walls(game);
 	check_tiles(game);
+	validate_map_paths(game);
 	init(game);
 	handle_map(game);
 	map_and_win(game, game->posx, game->posy, game->p_front);

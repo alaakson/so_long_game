@@ -6,7 +6,7 @@
 /*   By: alaakson <alaakson@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:36:44 by alaakson          #+#    #+#             */
-/*   Updated: 2024/09/23 14:45:36 by alaakson         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:58:53 by alaakson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	sprite_search(t_game *game, size_t y, size_t x)
 	}
 	else if (param == 'P')
 		put_sprite_to_window(game, game->player, y, x);
-	else
-		printf("Unknown map character: %c at (%zu, %zu)\n", param, y, x);
 }
 
 void	handle_map(t_game *game)

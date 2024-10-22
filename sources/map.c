@@ -6,7 +6,7 @@
 /*   By: alaakson <alaakson@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:36:49 by alaakson          #+#    #+#             */
-/*   Updated: 2024/09/27 11:52:59 by alaakson         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:39:23 by alaakson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	build_map(t_map *map, const char *file_path)
 
 void	*get_image_for_cell(t_game *game, char cell)
 {
-	static void	*image_lookup[256];
+	static void	*image_lookup[255];
 
 	image_lookup[256] = 0;
 	if (image_lookup['1'] == NULL)

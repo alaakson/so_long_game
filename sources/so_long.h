@@ -6,7 +6,7 @@
 /*   By: alaakson <alaakson@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:35 by alaakson          #+#    #+#             */
-/*   Updated: 2024/10/10 15:02:39 by alaakson         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:17:44 by alaakson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,9 @@ void	map_error(char *s);
 void	handle_map_errors(t_game *game, int error_flag);
 void	check_map_errors(t_game *game);
 int		check_tiles(t_game *game);
+void 	validate_map_paths(t_game *game);
+void    flood_fill(t_game *game, size_t x, size_t y, char target, char replacement);
+int		is_valid(t_game *game, size_t x, size_t y, char target);
+void	allocate_map_memory(t_game *game);
 
 #endif
