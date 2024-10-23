@@ -6,7 +6,7 @@
 /*   By: alaakson <alaakson@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 10:53:23 by alaakson          #+#    #+#             */
-/*   Updated: 2024/10/22 19:39:04 by alaakson         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:35:53 by alaakson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@ int	exit_hook(t_game *game)
 	return (EXIT_SUCCESS);
 }
 
+void print_map(t_game *game) 
+{
+    for (size_t row = 0; row < game->map.rows; row++) {
+        for (size_t col = 0; col < game->map.columns; col++) {
+            printf("%c", game->map.map[row][col]);
+        }
+        printf("\n");
+    }
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	*game;
@@ -40,13 +50,17 @@ int	main(int argc, char **argv)
 	}
 	game = malloc(sizeof(t_game));
 	if (!game)
+	{
+		ft_printf("Error allocating game\n");
 		return (EXIT_FAILURE);
+	}
 	build_map(&game->map, argv[1]);
-	allocate_map_memory(game);
 	load_map(game, argv[1]);
-	check_walls(game);
 	check_tiles(game);
-	validate_map_paths(game);
+	check_coins(game);
+	check_map_errors(game);
+	validate_path(game, game->map.map[0], game->posx, game->posy);
+	print_map(game);
 	init(game);
 	handle_map(game);
 	map_and_win(game, game->posx, game->posy, game->p_front);

@@ -6,18 +6,35 @@
 /*   By: alaakson <alaakson@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:05:28 by alaakson          #+#    #+#             */
-/*   Updated: 2024/10/22 19:41:16 by alaakson         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:55:29 by alaakson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int check_tiles(t_game *game)
+void check_tiles(t_game *game) 
+{
+    int height = game->map.rows;
+    int width = game->map.columns;
+
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            char tile = game->map.map[i][j];
+            if (tile != '0' && tile != '1' && tile != 'C' && tile != 'E' && tile != 'P') {
+                printf("Invalid tile found at (%d, %d): '%c'. Expected '0', '1', 'C', 'E', or 'P'.\n", i, j, tile);
+                map_error("Invalid tile found\n");
+            }
+        }
+    }
+}
+
+int check_coins(t_game *game)
 {
     int j;
     int i;
     int height;
     int width;
+    int coin_found = 0;
 
     i = 1;
     height = game->map.rows;
@@ -27,73 +44,100 @@ int check_tiles(t_game *game)
         j = 1;
         while (j < width - 1)
         {
-            char tile;
-            tile = game->map.map[i][j];
-            if (tile != '0' && tile != '1' && tile != 'E' && tile != 'C'&& tile != 'P')
+            char tile = game->map.map[i][j];
+            if (tile == 'C')
             {
-                ft_printf("Tiles missing (%d, %d) is not '0', found '%c'\n", i , j, tile);
-                exit(EXIT_FAILURE);
+                coin_found = 1;
             }
-        j++;
-        }
-        i++;
-    }
-    return (1);
-}
-
-int is_valid(t_game *game, size_t x, size_t y, char target)
-{
-    if (x >= game->map.columns || y >= game->map.rows)
-        return 0;
-    if (game->temp_map[y][x] != target)
-        return 0;
-    return 1;
-}
-
-
-void    flood_fill(t_game *game, size_t x, size_t y, char target, char replacement)
-{
-    if (!is_valid(game, x, y, target))
-    {
-        return ;
-    }
-    game->map.map[x][y] = replacement;
-    if (x > 0)
-        flood_fill(game, x + 1, y, target, replacement);
-    if (y > 0)
-        flood_fill(game, x, y - 1, target, replacement);
-    flood_fill(game, x - 1, y, target, replacement);
-    flood_fill(game, x, y + 1, target, replacement);
-}
-
-void validate_map_paths(t_game *game)
-{
-    size_t player_x;
-    size_t player_y;
-    size_t i;
-    size_t j;
-    
-    player_x = game->posx;
-    player_y = game->posy;
-    allocate_map_memory(game);
-    
-    i = 0;
-    while (i < game->map.rows)
-    {
-        j = 0;
-        while (j < game->map.columns)
-        {
-            game->temp_map[i][j] = game->map.map[i][j];
             j++;
         }
         i++;
     }
-    flood_fill(game, player_y, player_x, FLOOR, 'F');
-    printf("Player Position: (%zu, %zu)\n", player_y, player_x);
-    printf("Exit Position: (%zu, %zu)\n", game->exity, game->exitx);
-    printf("Temp Map at Exit: %c\n", game->temp_map[game->exity][game->exitx]);
-    if (game->temp_map[game->exity][game->exitx] != 'F') {
-        show_error("No valid path to exit.");
+    if (!coin_found)
+    {
+        ft_printf("Error: No coins ('C') found on the map.\n");
+        exit(EXIT_FAILURE);
     }
-    free_map(game);
+    return (1);
+}
+
+static char **create_temp_map(t_game *game)
+{
+    size_t i;
+    char **temp_map;
+
+    temp_map = (char **)malloc(sizeof(char *) * (game->win_height + 1));
+    if (!temp_map)
+        return (NULL);
+    for (i = 0; i < game->win_height; i++)
+    {
+        temp_map[i] = ft_strdup(game->map.map[i]);
+        if (!temp_map[i])
+        {
+            while (i > 0)
+            {
+                free(temp_map[--i]);
+            }
+            free(temp_map);
+            return (NULL);
+        }
+    }
+    temp_map[game->win_height] = NULL;
+    return (temp_map);
+}
+
+int flood_fill(char **temp_map, size_t width, size_t height, size_t x, size_t y, int *exit_found, int *collectibles_remaining)
+{
+    // Out of bounds check
+    if (x >= width || y >= height)
+        return (0);
+
+    // Check for walls or visited cells
+    if (temp_map[y][x] == '1' || temp_map[y][x] == 'V')
+        return (0);
+
+    // Mark this cell as visited
+    temp_map[y][x] = 'V';
+
+    // If we find an exit
+    if (temp_map[y][x] == 'E')
+        *exit_found = 1;
+
+    // If we find a collectible
+    if (temp_map[y][x] == 'C')
+        (*collectibles_remaining)--;
+
+    // Recursively fill in all directions
+    flood_fill(temp_map, width, height, x + 1, y, exit_found, collectibles_remaining); // Right
+    flood_fill(temp_map, width, height, x - 1, y, exit_found, collectibles_remaining); // Left
+    flood_fill(temp_map, width, height, x, y + 1, exit_found, collectibles_remaining); // Down
+    flood_fill(temp_map, width, height, x, y - 1, exit_found, collectibles_remaining); // Up
+
+    return (1);
+}
+
+int validate_path(t_game *game, char *map, size_t start_x, size_t start_y) 
+{
+    int collectables = 0;
+    int exit_found = 0;
+    char **temp = create_temp_map(game);
+
+    if (!temp) 
+    {
+        ft_printf("Memory allocation failed\n");
+        return (0);
+    }
+    if (!flood_fill(temp, game->win_width, game->win_height, start_x, start_y, &exit_found, &collectables))
+    {
+        ft_printf("No valid path available\n");
+        free(map);
+        //exit(EXIT_FAILURE);
+    }
+
+    for (size_t i = 0; i < game->win_height; i++) {
+        free(temp[i]);
+    }
+    free(temp);
+
+    return (collectables == game->collectible && exit_found);
 }

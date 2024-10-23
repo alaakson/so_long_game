@@ -6,7 +6,7 @@
 /*   By: alaakson <alaakson@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:30:35 by alaakson          #+#    #+#             */
-/*   Updated: 2024/10/21 14:17:44 by alaakson         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:29:27 by alaakson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@
 # define KEY_RIGHT 100
 # define KEY_Q				113
 # define KEY_ESC  			65307
+
+typedef struct t_position
+{
+	int x;
+	int y;
+}	t_position;
 
 typedef struct s_map
 {
@@ -96,6 +102,8 @@ typedef struct t_game
 	int		end;
 	size_t	exity;
 	size_t	exitx;
+	size_t	start_x;
+	size_t	start_y;
 	t_map	map;
 }	t_game;
 
@@ -128,10 +136,9 @@ void	*load_image(t_game *game, const char *path);
 void	map_error(char *s);
 void	handle_map_errors(t_game *game, int error_flag);
 void	check_map_errors(t_game *game);
-int		check_tiles(t_game *game);
-void 	validate_map_paths(t_game *game);
-void    flood_fill(t_game *game, size_t x, size_t y, char target, char replacement);
-int		is_valid(t_game *game, size_t x, size_t y, char target);
+void	check_tiles(t_game *game);
 void	allocate_map_memory(t_game *game);
+int		check_coins(t_game *game);
+int validate_path(t_game *game, char *map, size_t start_x, size_t start_y);
 
 #endif

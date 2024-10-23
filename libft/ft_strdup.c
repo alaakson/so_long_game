@@ -6,7 +6,7 @@
 /*   By: alaakson <alaakson@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 13:08:48 by alaakson          #+#    #+#             */
-/*   Updated: 2024/05/08 13:49:20 by alaakson         ###   ########.fr       */
+/*   Updated: 2024/10/23 11:52:48 by alaakson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strdup(const char *s1)
 	char	*dest;
 	size_t	i;
 
+	if (s1 == NULL)
+		return (NULL);
 	dest = ((char *) malloc(ft_strlen(s1) + 1));
 	if (!dest)
 		return (NULL);
